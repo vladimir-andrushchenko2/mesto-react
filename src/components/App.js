@@ -23,6 +23,20 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
+  function closeAllPopups() {
+    if (isAddPlacePopupOpen) {
+      setIsAddPlacePopupOpen(false);
+    }
+
+    if (isEditAvatarPopupOpen) {
+      setIsEditAvatarPopupOpen(false);
+    }
+
+    if (isEditProfilePopupOpen) {
+      setIsEditProfilePopupOpen(false);
+    }
+  }
+
   return (
     <>
       <PopupWithForm name="delete-card" title="Вы уверены?">
@@ -33,7 +47,7 @@ function App() {
         />
       </PopupWithForm>
 
-      <PopupWithForm name="profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen}>
+      <PopupWithForm name="profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
         <label className="pop-up__form-field">
           <input
             id="title-input"
@@ -67,7 +81,7 @@ function App() {
         />
       </PopupWithForm>
 
-      <PopupWithForm name="gallery-add" title="Новое место" isOpen={isAddPlacePopupOpen}>
+      <PopupWithForm name="gallery-add" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
         <label className="pop-up__form-field">
           <input
             id="picture-name-input"
@@ -99,7 +113,7 @@ function App() {
         />
       </PopupWithForm>
 
-      <PopupWithForm name="edit-profile-picture" title="Обновить аватар" isOpen={isEditAvatarPopupOpen}>
+      <PopupWithForm name="edit-profile-picture" title="Обновить аватар" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
         <label className="pop-up__form-field">
           <input
             id="update-profile-picture-input"
