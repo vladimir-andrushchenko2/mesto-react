@@ -1,6 +1,7 @@
 import Header from './Header';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
 
 function App() {
   return (
@@ -98,17 +99,7 @@ function App() {
         />
       </PopupWithForm>
 
-      <div className="pop-up pop-up_type_show-card pop-up_darker-background">
-        <div className="pop-up__container">
-          <button
-            type="button"
-            className="button pop-up__close-btn"
-            aria-label="Закрыть"
-          ></button>
-          <img className="pop-up__image" src="#" alt="" />
-          <p className="pop-up__image-caption"></p>
-        </div>
-      </div>
+      <ImagePopup />
 
       <div className="page">
         <Header />
