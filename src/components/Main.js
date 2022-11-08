@@ -1,6 +1,18 @@
 import profilePicturePlaceholder from '../images/profile-picture-placeholder.jpg';
 
 function Main() {
+  function handleEditProfileClick() {
+    document.querySelector('.pop-up_type_profile').classList.add('pop-up_opened');
+  }
+
+  function handleEditAvatarClick() {
+    document.querySelector('.pop-up_type_edit-profile-picture').classList.add('pop-up_opened');
+  }
+
+  function handleAddPlaceClick() {
+    document.querySelector('.pop-up_type_gallery-add').classList.add('pop-up_opened');
+  }
+
   return (
     <main className="content">
       <section className="profile">
@@ -10,7 +22,7 @@ function Main() {
             src={profilePicturePlaceholder}
             alt="заставка профиля"
           />
-          <div className="profile__picture-overlay"></div>
+          <div className="profile__picture-overlay" onClick={handleEditAvatarClick}></div>
         </div>
         <div className="profile__title">
           <h1 className="profile__title-text"></h1>
@@ -18,6 +30,7 @@ function Main() {
             type="button"
             className="button profile__modify-button"
             aria-label="Изменить профиль"
+            onClick={handleEditProfileClick}
           ></button>
         </div>
 
@@ -27,6 +40,7 @@ function Main() {
           type="button"
           className="button profile__add-button"
           aria-label="Изменить профиль"
+          onClick={handleAddPlaceClick}
         ></button>
       </section>
 
