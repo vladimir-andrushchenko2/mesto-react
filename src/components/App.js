@@ -1,9 +1,28 @@
+import React from 'react';
 import Header from './Header';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 
 function App() {
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+
+  function handleEditProfileClick() {
+    setIsEditProfilePopupOpen(true);
+  }
+
+  function handleEditAvatarClick() {
+    setIsEditAvatarPopupOpen(true);
+  }
+
+  function handleAddPlaceClick() {
+    setIsAddPlacePopupOpen(true);
+  }
+
   return (
     <>
       <PopupWithForm name="delete-card" title="Вы уверены?">
@@ -14,7 +33,7 @@ function App() {
         />
       </PopupWithForm>
 
-      <PopupWithForm name="profile" title="Редактировать профиль">
+      <PopupWithForm name="profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen}>
         <label className="pop-up__form-field">
           <input
             id="title-input"
@@ -48,7 +67,7 @@ function App() {
         />
       </PopupWithForm>
 
-      <PopupWithForm name="gallery-add" title="Новое место">
+      <PopupWithForm name="gallery-add" title="Новое место" isOpen={isAddPlacePopupOpen}>
         <label className="pop-up__form-field">
           <input
             id="picture-name-input"
@@ -80,7 +99,7 @@ function App() {
         />
       </PopupWithForm>
 
-      <PopupWithForm name="edit-profile-picture" title="Обновить аватар">
+      <PopupWithForm name="edit-profile-picture" title="Обновить аватар" isOpen={isEditAvatarPopupOpen}>
         <label className="pop-up__form-field">
           <input
             id="update-profile-picture-input"
@@ -103,8 +122,10 @@ function App() {
 
       <div className="page">
         <Header />
-        <Main />
-
+        <Main
+          onEditProfile={handleEditProfileClick}
+          onAddPlace={handleAddPlaceClick}
+          onEditAvatar={handleEditAvatarClick} />
 
         <footer className="footer">
           <p className="footer__text">&copy; 2022 Mesto Russia</p>

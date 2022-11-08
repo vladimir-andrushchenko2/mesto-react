@@ -1,6 +1,6 @@
-function PopupWithForm({ title, name, children }) {
+function PopupWithForm({ title, name, children, isOpen }) {
   return (
-    <div className={`pop-up pop-up_type_${name}`}>
+    <div className={`pop-up pop-up_type_${name} ${isOpen ? 'pop-up_opened' : ''}`}>
       <div className="pop-up__container">
         <button
           type="button"
