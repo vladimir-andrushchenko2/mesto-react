@@ -13,7 +13,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
           <div className="profile__picture-overlay" onClick={onEditAvatar}></div>
         </div>
         <div className="profile__title">
-          <h1 className="profile__title-text"></h1>
+          <h1 className="profile__title-text">Title placeholder text</h1>
           <button
             type="button"
             className="button profile__modify-button"
@@ -22,7 +22,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
           ></button>
         </div>
 
-        <p className="profile__subtitle"></p>
+        <p className="profile__subtitle">subtitle placeholder text</p>
 
         <button
           type="button"
