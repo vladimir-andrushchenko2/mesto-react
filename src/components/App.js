@@ -11,29 +11,39 @@ function App() {
 
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
 
+  function isLeftClickOnClosingElements({ target, button }) {
+    return button === 0 &&
+      (target.classList.contains('pop-up') ||
+        target.classList.contains('pop-up__close-btn'));
+  }
+
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
+
+    document.addEventListener('keydown', closeAllPopups);
   }
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
+
+    document.addEventListener('keydown', closeAllPopups);
   }
 
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true);
+
+    document.addEventListener('keydown', closeAllPopups);
   }
 
-  function closeAllPopups() {
-    if (isAddPlacePopupOpen) {
+  function closeAllPopups(event) {
+    if (event.key === 'Escape' || isLeftClickOnClosingElements(event)) {
       setIsAddPlacePopupOpen(false);
-    }
 
-    if (isEditAvatarPopupOpen) {
       setIsEditAvatarPopupOpen(false);
-    }
 
-    if (isEditProfilePopupOpen) {
       setIsEditProfilePopupOpen(false);
+
+      document.removeEventListener('keydown', closeAllPopups);
     }
   }
 
