@@ -3,6 +3,7 @@ import Header from './Header';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
+import Footer from './Footer';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -11,6 +12,7 @@ function App() {
 
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
 
+  // selectedCard is optional either false or Object
   const [selectedCard, setSelectedCard] = React.useState(false);
 
   function isLeftClickOnClosingElements({ target, button }) {
@@ -19,6 +21,7 @@ function App() {
         target.classList.contains('pop-up__close-btn'));
   }
 
+  // onClick={() => handleCardClick(card)}
   function handleCardClick(card) {
     setSelectedCard(card);
 
@@ -156,6 +159,7 @@ function App() {
 
       <div className="page">
         <Header />
+
         <Main
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
@@ -163,27 +167,8 @@ function App() {
           onCardClick={handleCardClick}
         />
 
-        <footer className="footer">
-          <p className="footer__text">&copy; 2022 Mesto Russia</p>
-        </footer>
+        <Footer />
       </div>
-
-      <template id="card">
-        <li className="gallery__item card">
-          <img className="card__picture" src="#" alt="default" />
-          <button type="button" className="button card__delete-button"></button>
-          <div className="card__info">
-            <h2 className="card__caption">Card caption</h2>
-            <div className="">
-              <button
-                type="button"
-                className="button card__like-button"
-              ></button>
-              <div className="card__likes"></div>
-            </div>
-          </div>
-        </li>
-      </template>
     </>
   );
 }
