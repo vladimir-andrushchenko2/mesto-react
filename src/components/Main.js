@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Card from './Card';
+
 import { api } from '../utils/api';
 
 function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
@@ -52,22 +54,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
 
       <section className="gallery">
         <ul className="gallery__items">
-          {cards.map(({ link, name, _id }) => (
-            <li key={_id} className="gallery__item card">
-              <img className="card__picture" src={link} alt="default" />
-              <button type="button" className="button card__delete-button"></button>
-              <div className="card__info">
-                <h2 className="card__caption">{name}</h2>
-                <div className="">
-                  <button
-                    type="button"
-                    className="button card__like-button"
-                  ></button>
-                  <div className="card__likes"></div>
-                </div>
-              </div>
-            </li>
-          ))}
+          {cards.map(card => <Card card={card} key={card._id} />)}
         </ul>
       </section>
     </main>
