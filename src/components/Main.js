@@ -4,7 +4,7 @@ import Card from './Card';
 
 import { api } from '../utils/api';
 
-function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
+function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
   const [userName, setUserName] = React.useState('');
   const [userDescription, setUserDescription] = React.useState('');
   const [userAvatar, setUserAvatar] = React.useState('');
@@ -54,7 +54,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
 
       <section className="gallery">
         <ul className="gallery__items">
-          {cards.map(card => <Card card={card} key={card._id} />)}
+          {cards.map(card => <Card card={card} onCardClick={onCardClick} key={card._id} />)}
         </ul>
       </section>
     </main>

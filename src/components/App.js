@@ -11,10 +11,18 @@ function App() {
 
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
 
+  const [selectedCard, setSelectedCard] = React.useState(false);
+
   function isLeftClickOnClosingElements({ target, button }) {
     return button === 0 &&
       (target.classList.contains('pop-up') ||
         target.classList.contains('pop-up__close-btn'));
+  }
+
+  function handleCardClick(card) {
+    setSelectedCard(card);
+
+    document.addEventListener('keydown', closeAllPopups);
   }
 
   function handleEditProfileClick() {
@@ -42,6 +50,8 @@ function App() {
       setIsEditAvatarPopupOpen(false);
 
       setIsEditProfilePopupOpen(false);
+
+      setSelectedCard(false);
 
       document.removeEventListener('keydown', closeAllPopups);
     }
@@ -142,14 +152,16 @@ function App() {
         />
       </PopupWithForm>
 
-      <ImagePopup />
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
       <div className="page">
         <Header />
         <Main
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
-          onEditAvatar={handleEditAvatarClick} />
+          onEditAvatar={handleEditAvatarClick}
+          onCardClick={handleCardClick}
+        />
 
         <footer className="footer">
           <p className="footer__text">&copy; 2022 Mesto Russia</p>
