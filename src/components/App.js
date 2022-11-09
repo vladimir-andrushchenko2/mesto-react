@@ -158,10 +158,10 @@ function App() {
 
       <template id="card">
         <li className="gallery__item card">
-          <img className="card__picture" src="#" alt="default image" />
+          <img className="card__picture" src="#" alt="default" />
           <button type="button" className="button card__delete-button"></button>
           <div className="card__info">
-            <h2 className="card__caption"></h2>
+            <h2 className="card__caption">Card caption</h2>
             <div className="">
               <button
                 type="button"
