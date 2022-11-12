@@ -15,10 +15,8 @@ function App() {
   // selectedCard is optional either false or Object
   const [selectedCard, setSelectedCard] = useState(false);
 
-  function isLeftClickOnClosingElements({ target, button }) {
-    return button === 0 &&
-      (target.classList.contains('pop-up') ||
-        target.classList.contains('pop-up__close-btn'));
+  function isLeftClick({ button }) {
+    return button === 0;
   }
 
   // onClick={() => handleCardClick(card)}
@@ -47,7 +45,7 @@ function App() {
   }
 
   function closeAllPopups(event) {
-    if (event.key === 'Escape' || isLeftClickOnClosingElements(event)) {
+    if (event.key === 'Escape' || isLeftClick(event)) {
       setIsAddPlacePopupOpen(false);
 
       setIsEditAvatarPopupOpen(false);
