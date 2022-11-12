@@ -45,19 +45,19 @@ function App() {
     document.removeEventListener('keydown', closePopUpOnEsc);
   }
 
-  const closePopUpOnEsc = useCallback(function ({ key }) {
+  function closePopUpOnEsc({ key }) {
     if (key === 'Escape') {
       closeAllPopups();
     }
-  }, [])
+  }
 
   useEffect(() => {
-    const isOpen = isAddPlacePopupOpen || isEditAvatarPopupOpen || isEditProfilePopupOpen;
+    const isOpen = isAddPlacePopupOpen || isEditAvatarPopupOpen || isEditProfilePopupOpen || selectedCard;
 
     if (isOpen) {
       document.addEventListener('keydown', closePopUpOnEsc);
     }
-  }, [isEditAvatarPopupOpen, isAddPlacePopupOpen, isEditProfilePopupOpen, closePopUpOnEsc])
+  }, [isEditAvatarPopupOpen, isAddPlacePopupOpen, isEditProfilePopupOpen, selectedCard])
 
   return (
     <>
@@ -96,11 +96,7 @@ function App() {
           />
           <span className="pop-up__input-error subtitle-input-error"></span>
         </label>
-        <input
-          type="submit"
-          className="pop-up__save-button"
-          value="Сохранить"
-        />
+
       </PopupWithForm>
 
       <PopupWithForm name="gallery-add" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
