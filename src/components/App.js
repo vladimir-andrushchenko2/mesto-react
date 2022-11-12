@@ -65,15 +65,9 @@ function App() {
 
   return (
     <>
-      <PopupWithForm name="delete-card" title="Вы уверены?">
-        <input
-          type="submit"
-          className="pop-up__save-button pop-up__save-button_type_delete"
-          value="Да"
-        />
-      </PopupWithForm>
+      <PopupWithForm name="delete-card" title="Вы уверены?" buttonText={'Да'} />
 
-      <PopupWithForm name="profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
+      <PopupWithForm name="profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} buttonText={'Сохранить'}>
         <label className="pop-up__form-field">
           <input
             id="title-input"
@@ -100,10 +94,9 @@ function App() {
           />
           <span className="pop-up__input-error subtitle-input-error"></span>
         </label>
-
       </PopupWithForm>
 
-      <PopupWithForm name="gallery-add" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
+      <PopupWithForm name="gallery-add" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} buttonText={'Сохранить'}>
         <label className="pop-up__form-field">
           <input
             id="picture-name-input"
@@ -128,14 +121,10 @@ function App() {
           />
           <span className="pop-up__input-error picture-source-input-error"></span>
         </label>
-        <input
-          type="submit"
-          className="pop-up__save-button"
-          value="Сохранить"
-        />
+
       </PopupWithForm>
 
-      <PopupWithForm name="edit-profile-picture" title="Обновить аватар" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
+      <PopupWithForm name="edit-profile-picture" title="Обновить аватар" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} buttonText={'Сохранить'}>
         <label className="pop-up__form-field">
           <input
             id="update-profile-picture-input"
@@ -147,11 +136,6 @@ function App() {
           />
           <span className="pop-up__input-error update-profile-picture-input-error"></span>
         </label>
-        <input
-          type="submit"
-          className="pop-up__save-button"
-          value="Сохранить"
-        />
       </PopupWithForm>
 
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
