@@ -1,8 +1,4 @@
 function PopupWithForm({ title, name, children, isOpen, onClose }) {
-  function isLeftClick({ button }) {
-    return button === 0;
-  }
-
   return (
     <div className={`pop-up pop-up_type_${name} ${isOpen ? 'pop-up_opened' : ''}`}>
       <div className="pop-up__container">
@@ -10,8 +6,8 @@ function PopupWithForm({ title, name, children, isOpen, onClose }) {
           type="button"
           className="button pop-up__close-btn"
           aria-label="Закрыть"
-          onClick={event => {
-            if (isLeftClick(event)) {
+          onClick={({ button }) => {
+            if (button === 0) {
               onClose();
             }
           }}
