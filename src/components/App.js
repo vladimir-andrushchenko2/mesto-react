@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Header from './Header';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
@@ -15,48 +15,49 @@ function App() {
   // selectedCard is optional either false or Object
   const [selectedCard, setSelectedCard] = useState(false);
 
-  function isLeftClick({ button }) {
-    return button === 0;
-  }
 
   // onClick={() => handleCardClick(card)}
   function handleCardClick(card) {
     setSelectedCard(card);
-
-    document.addEventListener('keydown', closeAllPopups);
   }
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
-
-    document.addEventListener('keydown', closeAllPopups);
   }
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
-
-    document.addEventListener('keydown', closeAllPopups);
   }
 
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true);
-
-    document.addEventListener('keydown', closeAllPopups);
   }
 
-  function closeAllPopups(event) {
-    if (event.key === 'Escape' || isLeftClick(event)) {
-      setIsAddPlacePopupOpen(false);
+  function closeAllPopups() {
+    setIsAddPlacePopupOpen(false);
 
-      setIsEditAvatarPopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
 
-      setIsEditProfilePopupOpen(false);
+    setIsEditProfilePopupOpen(false);
 
-      setSelectedCard(false);
+    setSelectedCard(false);
 
-      document.removeEventListener('keydown', closeAllPopups);
+    document.removeEventListener('keydown', closePopUpOnEsc);
+  }
+
+  const closePopUpOnEsc = useCallback(function ({ key }) {
+    if (key === 'Escape') {
+      closeAllPopups();
     }
-  }
+  }, [])
+
+  useEffect(() => {
+    const isOpen = isAddPlacePopupOpen || isEditAvatarPopupOpen || isEditProfilePopupOpen;
+
+    if (isOpen) {
+      document.addEventListener('keydown', closePopUpOnEsc);
+    }
+  }, [isEditAvatarPopupOpen, isAddPlacePopupOpen, isEditProfilePopupOpen, closePopUpOnEsc])
 
   return (
     <>
