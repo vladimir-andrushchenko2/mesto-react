@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Header from './Header';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
@@ -33,7 +33,9 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
-  function closeAllPopups() {
+  let closePopUpOnEsc;
+
+  const closeAllPopups = useCallback(function () {
     setIsAddPlacePopupOpen(false);
 
     setIsEditAvatarPopupOpen(false);
@@ -43,13 +45,13 @@ function App() {
     setSelectedCard(false);
 
     document.removeEventListener('keydown', closePopUpOnEsc);
-  }
+  }, [closePopUpOnEsc])
 
-  function closePopUpOnEsc({ key }) {
+  closePopUpOnEsc = useCallback(function ({ key }) {
     if (key === 'Escape') {
       closeAllPopups();
     }
-  }
+  }, [closeAllPopups])
 
   useEffect(() => {
     const isOpen = isAddPlacePopupOpen || isEditAvatarPopupOpen || isEditProfilePopupOpen || selectedCard;
@@ -58,7 +60,7 @@ function App() {
       document.addEventListener('keydown', closePopUpOnEsc);
     }
 
-  }, [isEditAvatarPopupOpen, isAddPlacePopupOpen, isEditProfilePopupOpen, selectedCard])
+  }, [isEditAvatarPopupOpen, isAddPlacePopupOpen, isEditProfilePopupOpen, selectedCard, closePopUpOnEsc])
 
   return (
     <>
