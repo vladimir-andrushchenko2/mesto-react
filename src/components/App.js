@@ -57,10 +57,7 @@ function App() {
     if (isOpen) {
       document.addEventListener('keydown', closePopUpOnEsc);
     }
-    // because when I use useCallback on closePopUpOnEsc,
-    // and then in turn useCallback on closeAllPopUps and define closeAllPopups as dependancy
-    // it complains that closePopUpOnEsc was used before definition
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [isEditAvatarPopupOpen, isAddPlacePopupOpen, isEditProfilePopupOpen, selectedCard])
 
   return (
