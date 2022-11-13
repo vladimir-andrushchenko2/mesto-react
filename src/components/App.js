@@ -96,7 +96,7 @@ function App() {
         </label>
       </PopupWithForm>
 
-      <PopupWithForm name="gallery-add" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} buttonText={'Сохранить'}>
+      <PopupWithForm name="gallery-add" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} buttonText={'Создать'}>
         <label className="pop-up__form-field">
           <input
             id="picture-name-input"
