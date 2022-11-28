@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
 import Header from './Header';
 import Main from './Main';
@@ -6,6 +6,7 @@ import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import Footer from './Footer';
 import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
 
 import { api } from '../utils/api';
 
@@ -22,6 +23,8 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({});
+
+  const avatarRef = useRef();
 
   // onClick={() => handleCardClick(card)}
   function handleCardClick(card) {
@@ -47,6 +50,15 @@ function App() {
         closeAllPopups();
       })
       .catch(err => console.error(err));
+  }
+
+  function handleUpdateAvatar(newAvatarUrl) {
+    api.patchUserAvatar(newAvatarUrl)
+      .then(updatedUser => {
+        avatarRef.current.src = updatedUser.avatar;
+        closeAllPopups();
+      })
+      .catch(err => console.error(err))
   }
 
   function closeAllPopups() {
@@ -113,19 +125,7 @@ function App() {
 
       </PopupWithForm>
 
-      <PopupWithForm name="edit-profile-picture" title="Обновить аватар" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} buttonText={'Сохранить'}>
-        <label className="pop-up__form-field">
-          <input
-            id="update-profile-picture-input"
-            type="url"
-            name="source"
-            className="pop-up__input pop-up__input_type_picture-source"
-            placeholder="Ссылка на картинку"
-            required
-          />
-          <span className="pop-up__input-error update-profile-picture-input-error"></span>
-        </label>
-      </PopupWithForm>
+      <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onChangeAvatar={handleUpdateAvatar} />
 
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
@@ -137,6 +137,7 @@ function App() {
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
           onCardClick={handleCardClick}
+          avatarRef={avatarRef}
         />
 
         <Footer />

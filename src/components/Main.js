@@ -6,7 +6,7 @@ import { api } from '../utils/api';
 
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
+function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, avatarRef }) {
   const currentUser = useContext(CurrentUserContext);
 
   const [cards, setCards] = React.useState([]);
@@ -49,6 +49,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
       <section className="profile">
         <div className="profile__picture-container">
           <img
+            ref={avatarRef}
             className="profile__picture"
             src={currentUser.avatar}
             alt="заставка профиля"

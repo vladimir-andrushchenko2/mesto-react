@@ -37,7 +37,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       isOpen={isOpen}
       onClose={onClose}
       buttonText={'Сохранить'}
-      onSumbit={handleSubmit}>
+      onSubmit={handleSubmit}>
       <label className="pop-up__form-field">
         <input
           id="title-input"
