@@ -38,6 +38,12 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
 
   }, [])
 
+  function handleCardDelete(cardToDelete) {
+    api.deleteCard(cardToDelete._id)
+      .then(deletedCard => setCards(cards.filter(card => card._id !== deletedCard._id)))
+      .catch(err => console.error(err));
+  }
+
   return (
     <main className="content">
       <section className="profile">
@@ -74,9 +80,10 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
           {cards.map(card =>
             <Card
               card={card}
-              onCardClick={onCardClick}
               key={card._id}
+              onCardClick={onCardClick}
               onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
             />)}
         </ul>
       </section>

@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function Card({ card, onCardClick, onCardLike }) {
+function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   const currentUser = useContext(CurrentUserContext);
 
   const { link, name } = card;
@@ -14,10 +14,14 @@ function Card({ card, onCardClick, onCardLike }) {
     onCardLike(card);
   }
 
+  function handleCardDelete() {
+    onCardDelete(card);
+  }
+
   return (
     <li className="gallery__item card">
       <img className="card__picture" src={link} alt="default" onClick={() => onCardClick(card)} />
-      <button type="button" className={`button card__delete-button ${isOwn ? 'card__delete-button_visible' : 'card__delete-button_hidden'}`}></button>
+      <button onClick={handleCardDelete} type="button" className={`button card__delete-button ${isOwn ? 'card__delete-button_visible' : 'card__delete-button_hidden'}`}></button>
       <div className="card__info">
         <h2 className="card__caption">{name}</h2>
         <div className="">
