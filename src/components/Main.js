@@ -11,12 +11,31 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
 
   const [cards, setCards] = React.useState([]);
 
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+
+    function updateCards(updatedCard) {
+      setCards(cards.map(card => card._id === updatedCard._id ? updatedCard : card));
+    }
+
+    if (!isLiked) {
+      api.putCardLike(card._id)
+        .then(updateCards)
+        .catch(err => console.error(err));
+    } else {
+      api.deleteCardLike(card._id)
+        .then(updateCards)
+        .catch(err => console.error(err));
+    }
+  }
+
   React.useEffect(() => {
     api.getInitialCards()
       .then(initialCards => {
         setCards(initialCards);
       })
       .catch(err => console.error(err));
+
   }, [])
 
   return (
@@ -52,7 +71,13 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
 
       <section className="gallery">
         <ul className="gallery__items">
-          {cards.map(card => <Card card={card} onCardClick={onCardClick} key={card._id} />)}
+          {cards.map(card =>
+            <Card
+              card={card}
+              onCardClick={onCardClick}
+              key={card._id}
+              onCardLike={handleCardLike}
+            />)}
         </ul>
       </section>
     </main>
