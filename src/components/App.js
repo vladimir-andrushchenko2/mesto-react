@@ -5,6 +5,7 @@ import Main from './Main';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import Footer from './Footer';
+import EditProfilePopup from './EditProfilePopup';
 
 import { api } from '../utils/api';
 
@@ -74,34 +75,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <PopupWithForm name="delete-card" title="Вы уверены?" buttonText={'Да'} />
 
-      <PopupWithForm name="profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} buttonText={'Сохранить'}>
-        <label className="pop-up__form-field">
-          <input
-            id="title-input"
-            type="text"
-            name="title"
-            className="pop-up__input pop-up__input_type_title"
-            placeholder="Ваше имя"
-            minLength="2"
-            maxLength="40"
-            required
-          />
-          <span className="pop-up__input-error title-input-error"></span>
-        </label>
-        <label className="pop-up__form-field">
-          <input
-            id="subtitle-input"
-            type="text"
-            name="subtitle"
-            className="pop-up__input pop-up__input_type_subtitle"
-            placeholder="О Вас"
-            minLength="2"
-            maxLength="200"
-            required
-          />
-          <span className="pop-up__input-error subtitle-input-error"></span>
-        </label>
-      </PopupWithForm>
+      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
 
       <PopupWithForm name="gallery-add" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} buttonText={'Создать'}>
         <label className="pop-up__form-field">
