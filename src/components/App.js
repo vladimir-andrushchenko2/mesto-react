@@ -40,6 +40,14 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
+  function handleUpdateUser({ name, about }) {
+    api.patchUserInfo(name, about)
+      .then(updatedUser => {
+        setCurrentUser(updatedUser);
+        closeAllPopups();
+      })
+      .catch(err => console.error(err));
+  }
 
   function closeAllPopups() {
     setIsAddPlacePopupOpen(false);
@@ -75,7 +83,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <PopupWithForm name="delete-card" title="Вы уверены?" buttonText={'Да'} />
 
-      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
+      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
 
       <PopupWithForm name="gallery-add" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} buttonText={'Создать'}>
         <label className="pop-up__form-field">
