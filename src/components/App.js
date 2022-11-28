@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
+
 import Header from './Header';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import Footer from './Footer';
+
+import { api } from '../utils/api';
+
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -15,6 +20,7 @@ function App() {
   // selectedCard is optional either false or Object
   const [selectedCard, setSelectedCard] = useState(false);
 
+  const [currentUser, setCurrentUser] = useState({});
 
   // onClick={() => handleCardClick(card)}
   function handleCardClick(card) {
@@ -45,6 +51,12 @@ function App() {
   }
 
   useEffect(() => {
+    api.getUserInfo().then(user => {
+      setCurrentUser(user);
+    })
+  }, [])
+
+  useEffect(() => {
     function closePopUpOnEsc({ key }) {
       if (key === 'Escape') {
         closeAllPopups();
@@ -59,7 +71,7 @@ function App() {
   }, [])
 
   return (
-    <>
+    <CurrentUserContext.Provider value={currentUser}>
       <PopupWithForm name="delete-card" title="Вы уверены?" buttonText={'Да'} />
 
       <PopupWithForm name="profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} buttonText={'Сохранить'}>
@@ -147,7 +159,7 @@ function App() {
 
         <Footer />
       </div>
-    </>
+    </CurrentUserContext.Provider>
   );
 }
 
