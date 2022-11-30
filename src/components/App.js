@@ -26,6 +26,32 @@ function App() {
 
   const avatarRef = useRef();
 
+  const [cards, setCards] = React.useState([]);
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+
+    function updateCards(updatedCard) {
+      setCards(cards.map(card => card._id === updatedCard._id ? updatedCard : card));
+    }
+
+    if (!isLiked) {
+      api.putCardLike(card._id)
+        .then(updateCards)
+        .catch(err => console.error(err));
+    } else {
+      api.deleteCardLike(card._id)
+        .then(updateCards)
+        .catch(err => console.error(err));
+    }
+  }
+
+  function handleCardDelete(cardToDelete) {
+    api.deleteCard(cardToDelete._id)
+      .then(deletedCard => setCards(cards.filter(card => card._id !== deletedCard._id)))
+      .catch(err => console.error(err));
+  }
+
   // onClick={() => handleCardClick(card)}
   function handleCardClick(card) {
     setSelectedCard(card);
@@ -70,6 +96,15 @@ function App() {
 
     setSelectedCard(false);
   }
+
+  React.useEffect(() => {
+    api.getInitialCards()
+      .then(initialCards => {
+        setCards(initialCards);
+      })
+      .catch(err => console.error(err));
+
+  }, [])
 
   useEffect(() => {
     api.getUserInfo()
@@ -139,6 +174,9 @@ function App() {
           onEditAvatar={handleEditAvatarClick}
           onCardClick={handleCardClick}
           avatarRef={avatarRef}
+          cards={cards}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
         />
 
         <Footer />
