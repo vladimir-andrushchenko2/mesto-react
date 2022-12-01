@@ -20,7 +20,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
 
   return (
     <li className="gallery__item card">
-      <img className="card__picture" src={link} alt="default" onClick={() => onCardClick(card)} />
+      <img className="card__picture" src={link} alt={name} onClick={() => onCardClick(card)} />
       <button onClick={handleCardDelete} type="button" className={`button card__delete-button ${isOwn ? 'card__delete-button_visible' : 'card__delete-button_hidden'}`}></button>
       <div className="card__info">
         <h2 className="card__caption">{name}</h2>
