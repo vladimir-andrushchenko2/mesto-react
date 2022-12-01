@@ -29,6 +29,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
           id="picture-name-input"
           type="text"
           name="name"
+          value={name}
           onChange={handleNameChange}
           className="pop-up__input pop-up__input_type_name"
           placeholder="Название"
@@ -43,6 +44,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
           id="picture-source-input"
           type="url"
           name="source"
+          value={link}
           onChange={handleLinkChange}
           className="pop-up__input pop-up__input_type_picture-source"
           placeholder="Ссылка на картинку"
