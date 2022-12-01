@@ -1,13 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 
 import Card from './Card';
 
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, avatarRef, cards, onCardLike, onCardDelete }) {
+function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, cards, onCardLike, onCardDelete }) {
   const currentUser = useContext(CurrentUserContext);
 
+  const avatarRef = useRef();
 
+  useEffect(() => {
+    avatarRef.current.src = currentUser.avatar;
+  }, [currentUser])
 
   return (
     <main className="content">

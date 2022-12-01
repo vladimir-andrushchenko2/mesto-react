@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Header from './Header';
 import Main from './Main';
@@ -20,12 +20,9 @@ function App() {
 
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
 
-  // selectedCard is optional either false or Object
-  const [selectedCard, setSelectedCard] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
 
   const [currentUser, setCurrentUser] = useState({});
-
-  const avatarRef = useRef();
 
   const [cards, setCards] = React.useState([]);
 
@@ -93,7 +90,7 @@ function App() {
   function handleUpdateAvatar(newAvatarUrl) {
     api.patchUserAvatar(newAvatarUrl)
       .then(updatedUser => {
-        avatarRef.current.src = updatedUser.avatar;
+        setCurrentUser(updatedUser);
         closeAllPopups();
       })
       .catch(err => console.error(err))
@@ -106,7 +103,7 @@ function App() {
 
     setIsEditProfilePopupOpen(false);
 
-    setSelectedCard(false);
+    setSelectedCard(null);
   }
 
   React.useEffect(() => {
@@ -159,7 +156,6 @@ function App() {
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
           onCardClick={handleCardClick}
-          avatarRef={avatarRef}
           cards={cards}
           onCardLike={handleCardLike}
           onCardDelete={handleCardDelete}
