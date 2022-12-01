@@ -6,14 +6,10 @@ function ImagePopup({ card, onClose }) {
           type="button"
           className="button pop-up__close-btn"
           aria-label="Закрыть"
-          onClick={({ button }) => {
-            if (button === 0) {
-              onClose();
-            }
-          }}
+          onClick={onClose}
         ></button>
-        <img className="pop-up__image" src={`${card ? card.link : '#'}`} alt="" />
-        <p className="pop-up__image-caption">{card ? card.name : ''}</p>
+        <img className="pop-up__image" src={`${card ? card.link : '#'}`} alt={card?.name} />
+        <p className="pop-up__image-caption">{card?.name}</p>
       </div>
     </div>
   );
