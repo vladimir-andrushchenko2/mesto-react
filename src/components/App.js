@@ -87,8 +87,8 @@ function App() {
       .catch(err => console.error(err));
   }
 
-  function handleUpdateAvatar(newAvatarUrl) {
-    api.patchUserAvatar(newAvatarUrl)
+  function handleUpdateAvatar({ avatar }) {
+    api.patchUserAvatar(avatar)
       .then(updatedUser => {
         setCurrentUser(updatedUser);
         closeAllPopups();
@@ -144,7 +144,7 @@ function App() {
 
       <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
 
-      <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onChangeAvatar={handleUpdateAvatar} />
+      <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
 
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 

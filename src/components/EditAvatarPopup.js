@@ -1,23 +1,15 @@
-import { useContext, useEffect, useState } from 'react';
+import { useRef } from 'react';
 import PopupWithForm from './PopupWithForm';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function EditAvatarPopup({ isOpen, onClose, onChangeAvatar }) {
-  const currentUser = useContext(CurrentUserContext);
-  const [sourceUrl, setSourceUrl] = useState('');
-
-  useEffect(() => {
-    setSourceUrl(currentUser.avatar);
-  }, [currentUser]);
-
-  function handleChange(event) {
-    setSourceUrl(event.target.value);
-  }
+function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
+  const avatarRef = useRef();
 
   function handleSubmit(event) {
     event.preventDefault();
 
-    onChangeAvatar(sourceUrl);
+    onUpdateAvatar({
+      avatar: avatarRef.current.value
+    });
   }
 
   return (
@@ -27,8 +19,7 @@ function EditAvatarPopup({ isOpen, onClose, onChangeAvatar }) {
           id="update-profile-picture-input"
           type="url"
           name="source"
-          value={sourceUrl}
-          onChange={handleChange}
+          ref={avatarRef}
           className="pop-up__input pop-up__input_type_picture-source"
           placeholder="Ссылка на картинку"
           required
