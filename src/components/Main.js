@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 
 import Card from './Card';
 
@@ -8,10 +8,6 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, cards, onC
   const currentUser = useContext(CurrentUserContext);
 
   const avatarRef = useRef();
-
-  useEffect(() => {
-    avatarRef.current.src = currentUser.avatar;
-  }, [currentUser])
 
   return (
     <main className="content">
